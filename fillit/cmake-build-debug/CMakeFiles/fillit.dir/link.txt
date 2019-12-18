@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/fillit.dir/main.c.o CMakeFiles/fillit.dir/library.c.o  -o fillit libfood.a 

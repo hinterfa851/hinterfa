@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/fill.dir/main.c.o  -o fill 
