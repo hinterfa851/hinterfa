@@ -1,0 +1,2 @@
+ifconfig | grep -E "*: " | cut -d: -f1
+
