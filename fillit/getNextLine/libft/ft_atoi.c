@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/22 18:29:34 by nglynis           #+#    #+#             */
-/*   Updated: 2019/09/22 18:31:18 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/23 16:31:13 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 19:48:21 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int		ft_atoi(char const *str)
 {
-	long long	r;
-	int			n;
+	int						sign;
+	unsigned long long int	num;
 
-	r = 0;
-	while (*str == ' ' || *str == '\n' || *str == '\r'
-			|| *str == '\f' || *str == '\t' || *str == '\v')
+	sign = 0;
+	num = 0;
+	while (*str && ((*str >= 9 && *str <= 13) || *str == ' '))
 		str++;
-	n = (*str == '-') ? (-1) : (1);
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str && *str >= '0' && *str <= '9')
+	if (*str == '-')
 	{
-		r = r * 10 + (*str - 48);
+		sign = 1;
 		str++;
 	}
-	if (r * n > 0 && n < 0)
-		return (0);
-	if (r * n < 0 && n > 0)
-		return (-1);
-	return ((int)r * n);
+	else if (*str == '+')
+		str++;
+	while (*str && (*str >= '0' && *str <= '9'))
+	{
+		num = num * 10 + (*str - '0');
+		str++;
+	}
+	if (num > 9223372036854775807)
+		return (sign ? 0 : -1);
+	return (sign ? -num : num);
 }

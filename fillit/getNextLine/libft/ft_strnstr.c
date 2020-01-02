@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 16:04:18 by nglynis           #+#    #+#             */
-/*   Updated: 2019/10/04 14:58:38 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/19 01:20:27 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/27 00:33:06 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,29 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t			pos;
-	unsigned int	i;
+	int		offset;
+	size_t	n;
 
-	if (!*needle)
-		return ((char*)haystack);
-	pos = 0;
-	while (haystack[pos] != '\0' && pos < len)
+	n = 0;
+	if (*needle == '\0')
+		return ((char *)haystack);
+	while (*haystack && (n < len))
 	{
-		if (haystack[pos] == needle[0])
+		offset = 0;
+		while ((*haystack == *needle) && (n++ < len) && *needle)
 		{
-			i = 1;
-			while (*(needle + i) != '\0' && *(haystack + pos + i) ==
-					*(needle + i) && (pos + i) < len)
-				++i;
-			if (*(needle + i) == '\0')
-				return ((char*)&haystack[pos]);
+			haystack++;
+			needle++;
+			offset++;
 		}
-		pos++;
+		if (!*needle)
+			return (char *)(haystack - offset);
+		else
+		{
+			haystack -= offset - 1;
+			needle -= offset;
+			n -= offset - 1;
+		}
 	}
-	return (0);
+	return (NULL);
 }

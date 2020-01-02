@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 01:35:45 by hinterfa          #+#    #+#             */
-/*   Updated: 2019/09/27 00:07:22 by hinterfa         ###   ########.fr       */
+/*   Created: 2019/09/28 17:50:44 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 17:51:32 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncat(char *destptr, const char *srcptr, size_t num)
+void		*ft_realloc(void *old, size_t new_len)
 {
-	unsigned long int	j;
-	int					i;
+	size_t	old_len;
+	void	*new;
 
-	j = 0;
-	i = 0;
-	while (*destptr)
+	if (!(old))
+		return (NULL);
+	old_len = ft_strlen(old);
+	if (!(new = ft_memalloc(new_len + 1)))
 	{
-		destptr++;
-		i++;
+		free(old);
+		return (NULL);
 	}
-	while (j < num && *srcptr != '\0')
-	{
-		*destptr = *srcptr;
-		srcptr++;
-		j++;
-		destptr++;
-	}
-	if (j <= num)
-	{
-		*destptr = '\0';
-		j++;
-		destptr++;
-	}
-	return (destptr - i - j);
+	ft_bzero(new, new_len);
+	ft_memcpy(new, old, new_len);
+	free(old);
+	return (new);
 }

@@ -16,6 +16,7 @@ void count_lst(tt_list *tetr)
         tetr = tetr->next;
         i++;
     }
+    printf("%d\n", i);
 }
 
 void frree(char ***arr)
@@ -33,27 +34,38 @@ void frree(char ***arr)
     *arr = NULL;
 }
 
-void read_to_arr(char ***arr, char *line, int flag){
+void read_to_arr(char ***arr, char *line, int flag, char c)
+{
     static int n;
     char *p;
+    int i;
 
+    i = 0;
     if (flag == 0)
         n = 0;
     p = ft_strchr(line, '#');
     if (p) {
         (*arr)[n] = ft_strdup(p);
+        while(i < 4)
+        {
+            if (((*arr)[n][i]) == '#')
+                ((*arr)[n][i]) = c;
+            i++;
+        }
+//        printf("%s\n", (*arr)[n]);
         n++;
     }
     if (flag == 3 && n < 4)
     {
-        while(n < 4) {
+        while(n < 4)
+        {
             (*arr)[n] = ft_strdup("");
             n++;
         }
     }
 }
 
-void arr_cpy(tt_list **tetr, char **arr)
+void arr_cpy_custom(tt_list **tetr, char **arr)
 {
     char **new;
     int i;
@@ -78,7 +90,7 @@ void addlst(tt_list **tetr, char **arr){
     if (!(*tetr)) {
         *tetr = malloc(sizeof(tt_list *));
         (*tetr)->next = NULL;
-        arr_cpy(tetr, arr);
+        arr_cpy_custom(tetr, arr);
     }
     else {
         new = malloc(sizeof(tt_list *));
@@ -87,32 +99,53 @@ void addlst(tt_list **tetr, char **arr){
         }
         p->next = new;
         new->next = NULL;
-        arr_cpy(&new, arr);
+        arr_cpy_custom(&new, arr);
     }
 }
 
-void reader_to_lst(char *arg, tt_list *tetr) {
+void prnt_rr(char **arr)
+{
+    int len;
+    int i;
+
+    i = 0;
+    len = ft_strlen(arr[0]);
+    while(i <= len)
+    {
+        printf("%s\n", arr[i]);
+        i++;
+    }
+}
+
+void reader_to_lst( tt_list **tetr) {
     char **arr;
     int fd;
     int flag;
     char *line;
+    char c;
 
+    c = 65;
     flag = 0;
-    arr = malloc(sizeof(char *) * 4);
-    fd = open("/home/tie-run/school21/fillit/sample2",O_RDONLY);
-    while(get_next_line(fd, &line) > 0)
-    {
+    arr = malloc(sizeof(char *) * 5);
+    fd = open("/Users/hinterfa/Documents/hinterfa/fillit/sample", O_RDONLY);
+    while (get_next_line(fd, &line) > 0) {
         if (flag != 3) {
-            read_to_arr(&arr, line, flag);
+            read_to_arr(&arr, line, flag, c);
             flag++;
-        }
-        else {
-            read_to_arr(&arr, line, flag);
-            addlst(&tetr, arr);
+        } else {
+            read_to_arr(&arr, line, flag, c);
+            addlst(tetr, arr);
             flag = 0;
+//            printf("%s\n", arr[0]);
+            //          printf("%s\n", arr[1]);
+//            printf("%s\n", arr[2]);
+//            printf("%s\n", arr[3]);
             frree(&arr);
             arr = malloc(sizeof(char *) * 4);
             get_next_line(fd, &line);
+            c++;
         }
     }
+
+    //   printf("%s\n\n", ((*tetr)->arr)[0]);
 }

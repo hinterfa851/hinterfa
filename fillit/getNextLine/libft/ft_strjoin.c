@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 19:57:34 by nglynis           #+#    #+#             */
-/*   Updated: 2019/11/01 18:02:10 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/22 20:29:22 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 00:16:16 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	int		len;
+	char	*res;
+	int		i;
+	int		j;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	len = ft_strlen((char*)s1) + ft_strlen((char*)s2);
-	if (!(str = (char *)malloc(sizeof(*str) * (len + 1))))
-		return (NULL);
-	ft_strcpy(str, (char*)s1);
-	ft_strcat(str, (char*)s2);
-	return (str);
+	if (s1 != NULL && s2 != NULL)
+	{
+		i = ft_strlen(s1);
+		j = ft_strlen(s2);
+		if (!(res = malloc(sizeof(char) * (i + j + 1))))
+			return (NULL);
+		ft_strcpy(res, s1);
+		while (*res)
+			res++;
+		ft_strcpy(res, s2);
+		return (res - i);
+	}
+	return (NULL);
 }

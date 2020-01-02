@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_words.c                                    :+:      :+:    :+:   */
+/*   ft_freesher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 15:24:49 by nglynis           #+#    #+#             */
-/*   Updated: 2019/10/04 16:56:19 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/28 19:59:00 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 20:00:38 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_free_words(char **words, size_t i)
+char	**ft_freesher(char **str, int len)
 {
-	while (i--)
-		ft_strdel(&(words[i]));
-	free(*words);
+	int i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (i < len)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (NULL);
 }

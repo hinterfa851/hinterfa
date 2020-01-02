@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/20 18:37:57 by nglynis           #+#    #+#             */
-/*   Updated: 2019/09/20 18:44:01 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/18 19:17:58 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/27 20:00:26 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_putendl_fd(char const *s, int fd)
 {
-	ft_putstr_fd((char*)s, fd);
-	ft_putchar_fd('\n', fd);
+	if (s != NULL)
+	{
+		ft_putstr_fd(s, fd);
+		ft_putstr_fd("\n", fd);
+	}
 }

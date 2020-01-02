@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/20 18:59:28 by nglynis           #+#    #+#             */
-/*   Updated: 2019/09/22 19:25:15 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/26 16:41:43 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/26 17:01:07 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	uintmax_t	x;
-
-	x = n;
-	if (n < 0)
+	if (n == -2147483648)
 	{
 		ft_putchar_fd('-', fd);
-		x = -n;
-	}
-	if (x >= 10)
-	{
-		ft_putnbr_fd(x / 10, fd);
-		ft_putnbr_fd(x % 10, fd);
+		ft_putnbr_fd(2, fd);
+		ft_putnbr_fd(147483648, fd);
 	}
 	else
-		ft_putchar_fd(x + '0', fd);
+	{
+		if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			n *= -1;
+		}
+		if (n / 10 != 0)
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ft_putchar_fd('0' + n % 10, fd);
+		}
+		else
+			ft_putchar_fd('0' + n % 10, fd);
+	}
 }

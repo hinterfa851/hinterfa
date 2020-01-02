@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 20:22:19 by nglynis           #+#    #+#             */
-/*   Updated: 2019/10/04 14:43:38 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/22 21:59:45 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 19:52:56 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 char	*ft_strtrim(char const *s)
 {
-	size_t	min;
-	size_t	max;
-	size_t	len;
+	char	*new;
+	int		i;
+	int		len;
+	int		j;
 
 	if (!s)
 		return (NULL);
-	min = 0;
-	while (*(s + min) != '\0'
-			&& (*(s + min) == ' ' || *(s + min) == '\n' || *(s + min) == '\t'))
-		min++;
-	max = ft_strlen((char*)s);
-	while (min < max
-			&& (*(s + max - 1) == ' ' ||
-				*(s + max - 1) == '\n' || *(s + max - 1) == '\t'))
-		max--;
-	if (min == max)
-		return (ft_strnew(1));
-	len = max - min;
-	return (ft_strsub(s, min, len));
+	j = 0;
+	len = (int)ft_strlen(s) - 1;
+	i = 0;
+	while (s[i] && (s[i] == ' ' || s[i] == '\n' || s[i] == '\t'))
+		i++;
+	while (len >= i && len >= 0 &&
+			(s[len] == ' ' || s[len] == '\n' || s[len] == '\t'))
+		len--;
+	if (!(new = (char *)malloc(sizeof(char) * (len - i + 2))))
+		return (NULL);
+	while (i <= len)
+		new[j++] = s[i++];
+	new[j] = '\0';
+	return (new);
 }

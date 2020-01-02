@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 11:18:14 by nglynis           #+#    #+#             */
-/*   Updated: 2019/11/02 21:43:07 by nglynis          ###   ########.fr       */
+/*   Created: 2019/10/09 18:12:49 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/11/14 21:00:09 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int		buf_work(char **str, char **line)
 {
-	char			*mass;
-	char			*eol;
+	char		*mass;
+	char		*eol;
 
 	if ((eol = ft_strchr(*str, '\n')))
 	{
@@ -49,7 +49,7 @@ int				get_next_line(const int fd, char **line)
 	{
 		buf[ret] = '\0';
 		mass = str[fd];
-		str[fd] = !str[fd] ? ft_strdup(buf) : ft_strjoin(str[fd], buf);
+		str[fd] = (!str[fd] ? ft_strdup(buf) : ft_strjoin(str[fd], buf));
 		ft_strdel(&mass);
 		if (ft_strchr(buf, '\n'))
 			break ;

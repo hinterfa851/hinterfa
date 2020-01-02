@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check.c                                         :+:      :+:    :+:   */
+/*   ft_worldcount.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nglynis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hinterfa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/20 16:17:47 by nglynis           #+#    #+#             */
-/*   Updated: 2019/09/22 19:36:56 by nglynis          ###   ########.fr       */
+/*   Created: 2019/09/28 20:01:07 by hinterfa          #+#    #+#             */
+/*   Updated: 2019/09/28 20:33:55 by hinterfa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_check(int c)
+int		ft_wordcount(char const *s, char c)
 {
-	return (c < 0 ? (-(c)) : (c));
+	int i;
+	int word;
+
+	i = 0;
+	word = 0;
+	while (s[i] == c)
+		i++;
+	while (s[i])
+	{
+		if (s[i] == c && s[i - 1] != c)
+			word++;
+		i++;
+	}
+	if (s[i - 1] != c)
+		word++;
+	return (word);
 }
