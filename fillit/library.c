@@ -34,7 +34,7 @@ void frree(char ***arr)
     *arr = NULL;
 }
 
-void read_to_arr(char ***arr, char *line, int flag, char c)
+void read_to_arr(char ***arr, char *line, int flag, char c)                                             //ATT!!!
 {
     static int n;
     char *p;
@@ -52,7 +52,6 @@ void read_to_arr(char ***arr, char *line, int flag, char c)
                 ((*arr)[n][i]) = c;
             i++;
         }
-//        printf("%s\n", (*arr)[n]);
         n++;
     }
     if (flag == 3 && n < 4)
@@ -82,21 +81,22 @@ void arr_cpy_custom(tt_list **tetr, char **arr)
     (*tetr)->arr = new;
 }
 
-void addlst(tt_list **tetr, char **arr){
+void addlst(tt_list **tetr, char **arr)
+{
     tt_list *p;
     tt_list *new;
 
     p = *tetr;
-    if (!(*tetr)) {
+    if (!(*tetr))
+    {
         *tetr = malloc(sizeof(tt_list *));
         (*tetr)->next = NULL;
         arr_cpy_custom(tetr, arr);
     }
     else {
         new = malloc(sizeof(tt_list *));
-        while (p->next) {
+        while (p->next)
             p = p->next;
-        }
         p->next = new;
         new->next = NULL;
         arr_cpy_custom(&new, arr);
@@ -117,7 +117,9 @@ void prnt_rr(char **arr)
     }
 }
 
-void reader_to_lst( tt_list **tetr) {
+
+void reader_to_lst( tt_list **tetr)                 //ATT!!
+{
     char **arr;
     int fd;
     int flag;
@@ -128,24 +130,22 @@ void reader_to_lst( tt_list **tetr) {
     flag = 0;
     arr = malloc(sizeof(char *) * 5);
     fd = open("/Users/hinterfa/Documents/hinterfa/fillit/sample", O_RDONLY);
-    while (get_next_line(fd, &line) > 0) {
-        if (flag != 3) {
+    while (get_next_line(fd, &line) > 0)
+    {
+        if (flag != 3)
+        {
             read_to_arr(&arr, line, flag, c);
             flag++;
-        } else {
+        } else
+            {
             read_to_arr(&arr, line, flag, c);
             addlst(tetr, arr);
             flag = 0;
-//            printf("%s\n", arr[0]);
-            //          printf("%s\n", arr[1]);
-//            printf("%s\n", arr[2]);
-//            printf("%s\n", arr[3]);
+
             frree(&arr);
             arr = malloc(sizeof(char *) * 4);
             get_next_line(fd, &line);
             c++;
-        }
+            }
     }
-
-    //   printf("%s\n\n", ((*tetr)->arr)[0]);
 }
