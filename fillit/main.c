@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
     n = 2;
     reader_to_lst(&tetr);
     map = cr_free_map(n);
+ //   count_lst(tetr);
     while ((d = calculate(tetr, &map)) == 0) {
         map = cr_free_map(++n);
     }
@@ -17,11 +18,6 @@ int main(int argc, char **argv) {
         printf("error\n");
     else
         prnt_rr(map);
-//    printf("%s\n", map[0]);
-//    printf("%s\n", map[1]);
-//    printf("%s\n", map[2]);
-//    printf("%s\n", map[3]);
-//    printf("%s\n", map[4]);
-//    printf("%s\n", map[5]);
+  //  printf("lol");
     return (0);
 }

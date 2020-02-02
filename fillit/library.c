@@ -6,6 +6,9 @@
 #include "getNextLine/libft/ft_strlen.c"
 #include "getNextLine/get_next_line.c"
 */
+
+void prnt_rr(char **arr);
+
 void count_lst(tt_list *tetr)
 {
     int i;
@@ -13,9 +16,11 @@ void count_lst(tt_list *tetr)
     i = 0;
     while (tetr->next)
     {
+        prnt_rr(tetr->arr);
         tetr = tetr->next;
         i++;
     }
+    prnt_rr(tetr->arr);
     printf("%d\n", i);
 }
 
@@ -39,10 +44,12 @@ void read_to_arr(char ***arr, char *line, int flag, char c)                     
     static int n;
     char *p;
     int i;
+ //   char ch;
 
     i = 0;
     if (flag == 0)
         n = 0;
+ //   ch = f_find(line);
     p = ft_strchr(line, '#');
     if (p) {
         (*arr)[n] = ft_strdup(p);
@@ -110,6 +117,7 @@ void prnt_rr(char **arr)
 
     i = 0;
     len = ft_strlen(arr[0]);
+ //   while(i < 4 && *(arr[i]))
     while(i <= len)
     {
         printf("%s\n", arr[i]);
@@ -129,7 +137,7 @@ void reader_to_lst( tt_list **tetr)                 //ATT!!
     c = 65;
     flag = 0;
     arr = malloc(sizeof(char *) * 5);
-    fd = open("/Users/hinterfa/Documents/hinterfa/fillit/sample", O_RDONLY);
+    fd = open("/Users/hinterfa/Documents/hinterfa/fillit/sample2", O_RDONLY);
     while (get_next_line(fd, &line) > 0)
     {
         if (flag != 3)
@@ -141,7 +149,6 @@ void reader_to_lst( tt_list **tetr)                 //ATT!!
             read_to_arr(&arr, line, flag, c);
             addlst(tetr, arr);
             flag = 0;
-
             frree(&arr);
             arr = malloc(sizeof(char *) * 4);
             get_next_line(fd, &line);

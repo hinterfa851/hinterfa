@@ -1,6 +1,6 @@
 int check(char **map, char *arr[], int *cur_coor);
 
-int place(char **arr, char **map, char ***new , int variant);
+int place(char **arr, char **map, char ***new , int *variant);
 
 int ft_write(char **map, char **arr, int *cur_coor, char ***new);
 
@@ -42,7 +42,7 @@ int calculate(tt_list *tetr, char ***map)               // actual version
 
     if ((*((tetr->arr)[0])) == '\0')
         return (10);
-    while ((res_place = place(tetr->arr, *map, &new, variant)) == 1)                   // useless
+    while ((res_place = place(tetr->arr, *map, &new, &variant)) == 1)                   // useless
     {
         variant++;
         if (tetr->next)
@@ -75,27 +75,27 @@ int *ft_finder(char **map, int n)
 }
 
 
-int place(char **arr, char **map, char ***new , int variant)           //(tetramino, old map, map to copy and write, position to place)
+int place(char **arr, char **map, char ***new , int *variant)           //(tetramino, old map, map to copy and write, position to place)
 {
    int *cur_coor;
 
-   cur_coor = ft_finder(map, variant);
-   while (variant < (cur_coor[2] * cur_coor[2]))               // !!!!!!!!!!!! TOOOO MUCH, REALLY??? LOL!!!!!!!!!!
+   cur_coor = ft_finder(map, *variant);
+   while (*variant < (cur_coor[2] * cur_coor[2]))               // !!!!!!!!!!!! TOOOO MUCH, REALLY??? LOL!!!!!!!!!!
    {
-       cur_coor = ft_finder(map, variant);
+       cur_coor = ft_finder(map, *variant);
        if (map[cur_coor[1]][cur_coor[0]] == '.')
        {
            if (check(map, arr, cur_coor))
            {
                ft_write(map, arr, cur_coor, new);
-               (variant)++;
+   //            (*variant)++;
                return (1);
            }
            else
-               (variant)++;
+               (*variant)++;
        }
        else
-            variant++;
+           (*variant)++;
    }
    return (0);
 }
@@ -152,33 +152,20 @@ int check(char **map, char **arr, int *cur_coor)
     count = 0;
     offset = 0;
     cp_arr_full(arr, &dies, 4);
-    prnt_rr(map);
- //   prnt_rr(arr);
-    printf("#%d\t%d$\n", cur_coor[1], cur_coor[0]);                                                                                         // MOVING DOWN, NOT TO THE LEFT!!!!!!!!!!
     len = ft_strlen(arr[0]);
-    while (((*dies[count]) != '.') && ((*dies[count]) != '\0')) {
-        //      printf("here, OK\n");                                       // !!!!!!!!!!
+    while (((*dies[count]) != '.') && ((*dies[count]) != '\0'))
+    {
         if (cur_coor[1] + count > cur_coor[2])
             return (0);
-        while (((*dies[count]) != '.') && ((*dies[count]) != '\0')) {
-            if (cur_coor[0] + offset > cur_coor[2]) {
-                printf("no!\n");
+        while (((*dies[count]) != '.') && ((*dies[count]) != '\0'))
+        {
+            if (cur_coor[0] + offset > cur_coor[2])
                 return (0);
-            }
-            if ((map[cur_coor[1] + count][cur_coor[0] + offset] != '.')) {
-//                printf("%d\t%d\t%d\t%d\t\n", cur_coor[1], count, cur_coor[0], offset);
+            if ((map[cur_coor[1] + count][cur_coor[0] + offset] != '.'))
                 return (0);
-            }
-            printf("*%d*\n", offset);
             offset++;
-            (dies[count])++;                                                                             // TYT COSYAKKKKKKKK!!!!!!!!!!
+            (dies[count])++;
         }
-/*
-        len = ft_strlen(arr[count++]);
-        //       printf("*%d*\n", ft_strlen(arr[count]));
-        if (count != 4 && offset != 0)                                                                   // GOVNOOOOO
-            offset = (len == ft_strlen(arr[count])) ? 0 : len - ft_strlen(arr[count]);
-*/
         if (++count != 4)
             offset = (len == ft_strlen(arr[count])) ? 0 : len - ft_strlen(arr[count]);
     }
